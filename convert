@@ -1,0 +1,19 @@
+const fs = require("fs");
+
+// input.txt 파일 읽기
+const input = fs.readFileSync("input.txt", "utf8");
+
+// 줄 단위로 나누고 원하는 형식으로 변환
+const result = input
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter((line) => line.length > 0)
+  .map((line) => `\t"${line.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}",`)
+  .join("\n");
+
+// 결과를 output.txt에 저장
+fs.writeFileSync("output.txt", result, "utf8");
+
+console.log("변환 완료: output.txt 파일을 확인하세요.");
+console.log("\n변환 결과:\n");
+console.log(result);
